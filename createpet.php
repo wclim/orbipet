@@ -10,7 +10,8 @@
         <script src="js/chui-3.5.2.js"></script>
         <script>
             $(document).ready(function(){
-                $.get("data.sav", function(data, status){
+                var data = $.get("data.sav");
+                data.done(function(data, status){
                     $("#popupMessageTarget").on("webkitAnimationEnd", function() {
                         this.className = "";
                         this.textContent = "";
@@ -21,7 +22,7 @@
                         message: 'Starting a new game will erase the current save file', 
                         continueButton: 'Got it!',
                     });
-                    $("#test").html(data + "");
+                    $("#test").html(data + ", " + status);
                 })
             })
         </script>
