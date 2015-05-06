@@ -11,8 +11,7 @@
         <script>
 <<<<<<< HEAD:createpet.php
             $(document).ready(function(){
-                var data = $.get("data.sav");
-                data.done(function(data, status){
+                $.get("data.sav", function(data, status){
                     $("#popupMessageTarget").on("webkitAnimationEnd", function() {
                         this.className = "";
                         this.textContent = "";
@@ -33,8 +32,12 @@
                         message: 'Starting a new game will erase the current save file', 
                         continueButton: 'Got it!',
                     });
+<<<<<<< HEAD:createpet.html
 <<<<<<< HEAD:createpet.php
                     $("#test").html(data + ", " + status);
+=======
+                    $("#test").html(data + "");
+>>>>>>> parent of 8bd67e3... push notifications:createpet.php
                 })
             })
 =======

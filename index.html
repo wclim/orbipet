@@ -6,34 +6,6 @@
         <meta name="description">
         <meta name="author"><!-- Le styles -->
         <script src="js/jquery.min.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="css/chui-ios-3.5.2.css">
-        <script src="js/chui-3.5.2.js"></script>
-        <script>
-            $(document).ready(function(){
-                var data = $.get("data.sav");
-                data.done(function(data, status){
-                    document.getElementById('resume').href = 'orbipet.html';
-                })
-            })
-            
-            function resumegame(){
-                var data = $.get("data.sav");
-                data.done(function(data, status){
-                    window.location.href = 'orbipet.html';
-                }).fail(function() { 
-                    $("#popupMessageTarget").on("webkitAnimationEnd", function() {
-                        this.className = "";
-                        this.textContent = "";
-                    });
-                    $.UIPopup({
-                        id: "warning",
-                        title: 'No saved game!', 
-                        message: 'Please start a new game', 
-                        continueButton: 'Got it!',
-                    });
-                })
-            }
-        </script>
         <style type="text/css">
             .center {
                 margin-left: auto;
@@ -72,7 +44,7 @@
                         <div class="container">
                             <ul class="nav">
                                 <li>
-                                    <a href="#" id="resume" onclick="resumegame()">Resume Game</a>
+                                    <a href="#">Resume Game</a>
                                 </li>
                             </ul>
                         </div>
@@ -90,6 +62,8 @@
                     </div>
                 </div><!-- /.navbar -->
             </div><!-- Jumbotron -->
+            <hr>
+            <hr>
         </div><!-- /container -->
     </div>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
