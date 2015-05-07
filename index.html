@@ -9,17 +9,10 @@
         <link rel="stylesheet" href="css/chui-ios-3.5.2.css">
         <script src="js/chui-3.5.2.js"></script>
         <script>
-            $(document).ready(function(){
-                var data = $.get("data.sav");
-                data.done(function(data, status){
-                    document.getElementById('resume').href = 'orbipet.html';
-                })
-            })
-            
             function resumegame(){
                 var data = $.get("data.sav");
                 data.done(function(data, status){
-                    window.location.href = 'orbipet.html';
+                    window.location.href = 'orbipet.php';
                 }).fail(function() { 
                     $("#popupMessageTarget").on("webkitAnimationEnd", function() {
                         this.className = "";

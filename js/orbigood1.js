@@ -13,7 +13,6 @@ bgImage.onload = function () {
 bgImage.src = "images/screen.png";
 var screenleftlimit =0;
 var shitanimation = false;
-var playerName = "defaultPlayer";
 var sleepanimation = false;
 var egganimation = false;
 var happyAnimation = false;
@@ -936,8 +935,6 @@ var evolveseqcount = 0, eggCount =0, countForEnergy = 0, countForEvolution = 0,t
 var startGame = function(){
 	pet.x = 103;
 	pet.y = 0;
-	TINY.box.hide();
-	pet.name=document.getElementById('petname').value;
 	document.getElementById("pet details").innerHTML = ("<b><u><font size=2>"+pet.name+"'s Details</font></u></b><br><b>Hatching...</b>");
 	mainInt = setInterval(main, 600); //updates per 600 milisecond for egg
 };

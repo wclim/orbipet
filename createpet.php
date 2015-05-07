@@ -10,20 +10,25 @@
         <script src="js/chui-3.5.2.js"></script>
         <script>
             $(document).ready(function(){
-                var data = $.get("data.sav");
-                data.done(function(data, status){
-                    $("#popupMessageTarget").on("webkitAnimationEnd", function() {
-                        this.className = "";
-                        this.textContent = "";
-                    });
-                    $.UIPopup({
-                        id: "warning",
-                        title: 'Save File detected!', 
-                        message: 'Starting a new game will erase the current save file', 
-                        continueButton: 'Got it!',
-                    });
-                    $("#test").html(data + ", " + status);
-                })
+                $.ajax({ 
+                    url: "data.sav",
+                    type: "POST",
+                    dataType: "text",
+                    success: function(data, status) {
+                        $("#popupMessageTarget").on("webkitAnimationEnd", function() {
+                            this.className = "";
+                            this.textContent = "";
+                        });
+                        $.UIPopup({
+                            id: "warning",
+                            title: 'Save File detected!', 
+                            message: 'Starting a new game will erase the current save file', 
+                            continueButton: 'Got it!',
+                        });                        
+                    }
+                });
+                return;
+                
             })
         </script>
         <style type="text/css">
@@ -49,7 +54,13 @@
         <div data-mercury="full" id="mercuryblock" style="overflow: visible;">
             <div class="container">
                 <div class="masthead">
-                    <h3 id="test"></h3>
+                    <form role="form">
+                        <div class="form-group">
+                            <label>Pet Name:</label>
+                            <input type="text" class="form-control" id="petname" placeholder="Pet Name">
+                        </div>
+                        <button type="submit" class="btn btn-default">Create Pet!</button>
+                    </form>
                 </div><!-- /container -->
             </div>
             <script src="js/bootstrap.min.js" type="text/javascript"></script>
