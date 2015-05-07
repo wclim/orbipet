@@ -23,77 +23,16 @@
             };
         </script>
         <script>
-            function getData()
-            {
-                $.ajax({ 
-                    url: "data.sav",
-                    type: "POST",
-                    dataType: "text",
-                    success: function(data, status) {
-                        var datas = data.split('\n');
-                        pet.name = datas[0];
-                        pet.imagesize =  parseInt(datas[1]);
-                        pet.isBusy = false; //if pet is doing stuff
-                        pet.chanceToFallSick = parseInt(datas[2]); // 10/10000 chance of falling sick by default , i.e. 0.1% chance
-                        pet.age =  parseInt(datas[3]); //age is seconds
-                        pet.level = parseInt(datas[4]); //level 0 is egg, level 1 is baby, level 2 is child, level 3 is adult
-                        pet.type = parseInt(datas[5]); //type is the different evolution paths, child have 2 types, adult have 3 types
-                        pet.careMistakes = parseInt(datas[6]); //care mistakes determine evolution path
-                        pet.training = parseInt(datas[7]); //training is prerequisites to evolve
-                        pet.currentFoodLevel = parseInt(datas[8]);
-                        pet.currentFoodCapacity = parseInt(datas[9]);//the max amount of food pet can consume
-                        pet.energyLevel = parseInt(datas[10]);	//0-100% when energy becomes 0, pet goes to sleep
-                        pet.maxEnergy = parseInt(datas[11]);
-                        if (datas[12].toLowerCase() == "true"){
-                            pet.isDead = true;
-                        }else{
-                            pet.isDead=false;
-                        }
-                        if (datas[13].toLowerCase() == "true"){
-                            pet.isHungry = true;
-                        }else{
-                            pet.isHungry=false;
-                        }
-                        if (datas[14].toLowerCase() == "true"){
-                            pet.isSleeping = true;
-                        }else{
-                            pet.isSleeping=false;
-                        }
-                        if (datas[15].toLowerCase() == "true"){
-                            pet.isSick = true;
-                        }else{
-                            pet.isSick=false;
-                        }
-                        if (datas[16].toLowerCase() == "true"){
-                            pet.lights = true;
-                        }else{
-                            pet.lights=false;
-                        }
-                        pet.chanceToShit = parseInt(datas[17]);
-                        pet.shitcount = parseInt(datas[18]);
-                        pet.willEvolveAt = parseInt(datas[19]);
-                        
-                        startGame();
-                    }
-                    
-                });
-                
-                return;
+            function load(){
+                TINY.box.show({html:'<center><br><b>Please enter a name for your pet.</b></br><br><form onsubmit="pet.name=document.getElementById(&#39;petname&#39;).value;startGame();TINY.box.hide(); return false"><input required type="text" id="petname" maxlength="10"><input type="submit" value="Create!"></form>',width:250,height:100, close:false});
             };
-            
-            function save(){
-                function saveFile(fs) {
-                    fs.root.getFile("data.sav", {create: true}, function(DatFile) {
-                        DatFile.createWriter(function(DatContent) {
-                            var blob = new Blob(["Lorem Ipsum"], {type: "text/plain"});
-                            DatContent.write(blob);
-                        });
-                    });                  
-                    window.webkitRequestFileSystem(window.PERSISTENT , 1024*1024, saveFile);
-                }
-            }
         </script>
         <script>
+            function resetGame()
+            {
+                if(pet.level>0)
+                    TINY.box.show({html:'<center><br><b>This will erase your game data!</b></br><br><a href = "javascript:TINY.box.show({html:&#39; <center><br><b>Please enter a name for your pet.</b></br><br><form onsubmit=&#34;realresetGame(); return false&#34;><input required type=&#34;text&#34; id=&#34;petname&#34; maxlength=&#34;13&#34;><input type=&#34;submit&#34; value=&#34;Create!&#34;></form>&#39;,width:250,height:100,});"><button>Ok, I know</button></a>',width:250,height:100});
+            }
             function realresetGame() {
                 TINY.box.hide();
                 pet.name=document.getElementById('petname').value;
@@ -165,6 +104,12 @@
                 cursor: mouse;
             }
             
+            .tbox {position:absolute; display:none; padding:14px 17px; z-index:900}
+            .tinner {border: 3px dotted black; color: #808080; font-size:10pt; padding:15px; -moz-border-radius:5px; border-radius:5px; background:#fff no-repeat 50% 50%; }
+            .tmask {position:absolute; display:none; top:0px; left:0px; height:100%; width:100%; background:#000; z-index:800}
+            .tclose {position:absolute; top:0px; right:0px; width:30px; height:30px; cursor:pointer; background:url(images/close.png) no-repeat}
+            .tclose:hover {background-position:0 -30px}
+            
             .b3 {
                 font-size: 8pt;
                 color:#808080;
@@ -181,12 +126,11 @@
             
         </style>
         
-        <body onmouseup = "mouseup()" onload = "getData()">
-            
-            <a  class="btn btn-info btn-lg" onclick= "save()">
-                <span class="glyphicon glyphicon-chevron-left" ></span>Pause Game
+        <body onmouseup = "mouseup()" onload = "load()">
+            <a  class="btn btn-info btn-lg" onclick= "resetGame()">
+                <span class="glyphicon glyphicon-chevron-left" ></span>Reset
             </a>
-            <div style="position:absolute; width: 509; height: 325; left: 247; top: 60; background: none;">
+            <div style="position:absolute; width: 509; height: 325; left: 130; top: 20; background: none;">
                 
                 
                 <div style="position:absolute; width:66; height: 63; left: 50; top: 50;">
@@ -210,7 +154,7 @@
                 </div>
             </div>
             
-            <div style="position:absolute; width: 205; left: 20; top: 200;">
+            <div style="position:absolute; width: 150; left: 10; top: 70;">
                 <div id = "pet details" class=b3>
                     
                 </div>
@@ -222,13 +166,13 @@
             
             
             
-            <script src="js/template.js"></script>
             <script src="js/button1.js"></script>
             <script src="js/button2.js"></script>
             <script src="js/button3.js"></script>
             <script src="js/iconbar.js"></script>
             <script src="js/orbigood1.js"></script>
             <script src="js/foodgame.js"></script>
+            <script type="text/javascript" src="js/tinybox.js"></script>
             <script src="js/bootstrap.min.js" type="text/javascript"></script>
             <body>
                 
