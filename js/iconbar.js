@@ -90,17 +90,8 @@ var changeIcon = function(){
 	}
 };
 
-var el = new Everlive('your-api-key-here');
-
 var needAttention = function(){
 	clearTimeout( mistakeTimer );
-    el.push.send({ Message:'Your pet requires attention!' },
-    function(data){
-        alert(JSON.stringify(data));
-    },
-    function(error){
-        alert(JSON.stringify(error));
-    })
 	ctxicon.drawImage(iconalert,0, 175);
 	mistakeTimer = setTimeout(function(){ctxicon.drawImage(iconalertoff,0, 175);
 		},120000); //2mins of negligence will make 1 care mistake
