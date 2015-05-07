@@ -9,65 +9,22 @@
         <link rel="stylesheet" href="css/chui-ios-3.5.2.css">
         <script src="js/chui-3.5.2.js"></script>
         <script>
-<<<<<<< HEAD:createpet.php
             $(document).ready(function(){
-                $.get("data.sav", function(data, status){
+                var data = $.get("data.sav");
+                data.done(function(data, status){
                     $("#popupMessageTarget").on("webkitAnimationEnd", function() {
                         this.className = "";
                         this.textContent = "";
                     });
-=======
-            $(function() {
-                $("#popupMessageTarget").on("webkitAnimationEnd", function() {
-                    this.className = "";
-                    this.textContent = "";
-                });
-                
-                // Bind event to show the popup:
-                $(document).ready(function() {
->>>>>>> parent of 47d53b1... allow for file reading:createpet.html
                     $.UIPopup({
                         id: "warning",
                         title: 'Save File detected!', 
                         message: 'Starting a new game will erase the current save file', 
                         continueButton: 'Got it!',
                     });
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.html
-<<<<<<< HEAD:createpet.php
                     $("#test").html(data + ", " + status);
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
-=======
-                    $("#test").html(data + "");
->>>>>>> parent of 8bd67e3... push notifications:createpet.php
                 })
             })
-=======
-                });
-            });
->>>>>>> parent of 47d53b1... allow for file reading:createpet.html
         </script>
         <style type="text/css">
             .glyphicon-chevron-left,glyphicon-chevron-right {
@@ -92,7 +49,7 @@
         <div data-mercury="full" id="mercuryblock" style="overflow: visible;">
             <div class="container">
                 <div class="masthead">
-                    
+                    <h3 id="test"></h3>
                 </div><!-- /container -->
             </div>
             <script src="js/bootstrap.min.js" type="text/javascript"></script>
