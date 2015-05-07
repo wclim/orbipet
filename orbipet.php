@@ -82,12 +82,15 @@
             };
             
             function save(){
-                var fso = new ActiveXObject("Scripting.FileSystemObject");
-                var fh = fso.CreateTextFile("data.sav", true);
-                fh.WriteLine("line1");
-                fh.WriteLine("line2");
-                fh.Close();
-                alert("saved");
+                function saveFile(fs) {
+                    fs.root.getFile("data.sav", {create: true}, function(DatFile) {
+                        DatFile.createWriter(function(DatContent) {
+                            var blob = new Blob(["Lorem Ipsum"], {type: "text/plain"});
+                            DatContent.write(blob);
+                        });
+                    });                  
+                    window.webkitRequestFileSystem(window.PERSISTENT , 1024*1024, saveFile);
+                }
             }
         </script>
         <script>
@@ -179,7 +182,8 @@
         </style>
         
         <body onmouseup = "mouseup()" onload = "getData()">
-            <a href="index.html" class="btn btn-info btn-lg" onclick= "save()">
+            
+            <a  class="btn btn-info btn-lg" onclick= "save()">
                 <span class="glyphicon glyphicon-chevron-left" ></span>Pause Game
             </a>
             <div style="position:absolute; width: 509; height: 325; left: 247; top: 60; background: none;">
