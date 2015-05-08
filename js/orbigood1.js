@@ -106,7 +106,7 @@ var pet = {
 	name: "MyPet",
 	imagesize: 0,
 	isBusy:false, //if pet is doing stuff
-	chanceToFallSick: 10, // 10/10000 chance of falling sick by default , i.e. 0.1% chance
+	chanceToFallSick: 7, // 7/10000 chance of falling sick by default , i.e. 0.07% chance
 	age: 0, //age is seconds
 	level: 0, //level 0 is egg, level 1 is baby, level 2 is child, level 3 is adult
 	type: 0, //type is the different evolution paths, child have 2 types, adult have 3 types
@@ -121,14 +121,14 @@ var pet = {
 	isSleeping: false, //if pet is sleeping
 	isSick: false, //if pet is sick
 	lights: true, //on or off the lights for pet to sleep
-	chanceToShit: 7,
+	chanceToShit: 6,
 	shitcount: 0, //how many shit there are
-	willEvolveAt: 39, //countdown time to evolve to next stage, default value is 39, i.e. 30 secs for egg to hatch
+	willEvolveAt: 1176, //countdown time to evolve to next stage, default value is 1176, i.e. 15mins for egg to hatch
 	
 	moveleftbefore:true,
 	moverightbefore:false,
 	stayinspotbefore:false,
-	goingLeft: true
+	goingLeft: true,
 };
 
 
@@ -341,8 +341,8 @@ var evolution = function(){
 //creation of shit
 var shit = function (){ 
 	var randomnum = Math.random()*1000;//chance of getting a shit is pet.chanceToShit/1000% every 0.777second
-	if (pet.currentFoodLevel*2 > pet.currentFoodCapacity)//if current food level is more than half of food capacity, chance to shit increase by 0.3%
-		randomnum-=3;
+	if (pet.currentFoodLevel*2 > pet.currentFoodCapacity)//if current food level is more than half of food capacity, chance to shit increase by 0.2%
+		randomnum-=2;
 	if (randomnum < pet.chanceToShit){
 		pet.shitcount++;
 		if (pet.shitcount ==1 ||pet.shitcount ==3){
@@ -358,7 +358,7 @@ var shit = function (){
 
 var fallsick = function(){
 	var randomnum = Math.random()*10000;//chance of getting sick is 0.09% every 0.777second
-	if (randomnum < (pet.chanceToFallSick + pet.shitcount*4 - (pet.level)*2)){ //each shit increases chance of falling sick by 0.04%
+	if (randomnum < (pet.chanceToFallSick + pet.shitcount*3 - (pet.level)*2)){ //each shit increases chance of falling sick by 0.03%
 		pet.isSick=true;												// every increase in level reduce chance by 0.02% level 1 reduction is 0, level2 reduction is 2, level 3 reduction is 4
 		sickOnset = true;
 	}
@@ -528,10 +528,10 @@ var evolve = function(){
 		setTimeout(function(){
 			mainInt = setInterval(main, 777);  /////////////////////////////////////////////////main timing
 			pet.level++;
-			pet.willEvolveAt= 1158; //to be changed to 1158, i.e. 15 mins
-			pet.currentFoodCapacity=20;
+			pet.willEvolveAt= 14040; //to be changed to 14040, i.e. 3hrs
+			pet.currentFoodCapacity=50;
 			pet.careMistakes=0; //to be changed
-			pet.maxEnergy= 20;
+			pet.maxEnergy= 50;
 			pet.imagesize=71;
 			petImage1.src = "images/baby/movement/1.png";
 			petImage2.src = "images/baby/movement/-1.png";
@@ -561,18 +561,18 @@ var evolve = function(){
 			mainInt = setInterval(main,777);
 			if(pet.careMistakes<=2)
 				pet.type=1;
-			else if(pet.careMistakes>=3 && pet.careMistakes <10)
+			else if(pet.careMistakes>=3 && pet.careMistakes <30)
 				pet.type=2;
-			else if(pet.careMistakes>=10)
+			else if(pet.careMistakes>=30)
 				pet.type=3;
 			pet.level++;
 			pet.careMistakes=0;//to be changed
-			pet.willEvolveAt = 3475; //to be changed to 3475, i.e. 45mins
-			pet.chanceToShit = 5;
+			pet.willEvolveAt = 112320; //to be changed to 112320, i.e. 24hours
+			pet.chanceToShit = 4;
 			if (pet.type == 1){
 				pet.imagesize=101;
-				pet.currentFoodCapacity=38;
-				pet.maxEnergy= 50;
+				pet.currentFoodCapacity=95;
+				pet.maxEnergy= 125;
 				petImage1.src = "images/child1/movement/1.1.png";
 				petImage2.src = "images/child1/movement/2.1.png";
 				petImage3.src = "images/child1/movement/1.2.png";
@@ -586,8 +586,8 @@ var evolve = function(){
 			}
 			else if (pet.type == 2){
 				pet.imagesize=71;
-				pet.currentFoodCapacity=42;
-				pet.maxEnergy= 46;
+				pet.currentFoodCapacity=105;
+				pet.maxEnergy= 115;
 				petImage1.src = "images/child2/movement/1.1.png";
 				petImage2.src = "images/child2/movement/2.1.png";
 				petImage3.src = "images/child2/movement/1.2.png";
@@ -601,8 +601,8 @@ var evolve = function(){
 			}
 			else if (pet.type == 3){
 				pet.imagesize=65;
-				pet.currentFoodCapacity=32;
-				pet.maxEnergy= 30;
+				pet.currentFoodCapacity=80;
+				pet.maxEnergy= 75;
 				petImage1.src = "images/child3/movement/1.1.png";
 				petImage2.src = "images/child3/movement/2.1.png";
 				petImage3.src = "images/child3/movement/1.2.png";
@@ -621,9 +621,9 @@ var evolve = function(){
 			,1200);
 	}
 	else if(pet.level==2){//child to adult
-		if (countForEvolution >= 6950)//if pet stays at child level, its life span is 90mins or 1.5hours 
+		if (countForEvolution >= 18720)//if pet stays at child level, its life span is 4hours
 			pet.level+=2;
-		if (pet.training<5)//to evolve to adult level, need to train at least 5 times
+		if (pet.training<10)//to evolve to adult level, need to train at least 10 times
 			return;
 		clearInterval(mainInt);
 		evolveseqcount = 0;
@@ -634,7 +634,7 @@ var evolve = function(){
 			mainInt = setInterval(main,777);
 			if(pet.type==1){
 				if(pet.careMistakes<=3){
-					if(pet.training>30)
+					if(pet.training>40)
 						pet.type=1;
 					else
 						pet.type=2;
@@ -644,37 +644,37 @@ var evolve = function(){
 			}
 			else if(pet.type==2){
 				if(pet.careMistakes<=3){
-					if(pet.training>15)
+					if(pet.training>30)
 						pet.type=2;
 					else
 						pet.type=4;
 				}
 				else if(pet.careMistakes>3){
-					if(pet.training>10)
+					if(pet.training>25)
 						pet.type=4;
 					else
 						pet.type=3;
 				}
 			}
 			else if(pet.type==3){
-				if(pet.careMistakes>=10){
-					if(pet.training<=6)
+				if(pet.careMistakes>=50){
+					if(pet.training<=13)
 						pet.type=5;
 					else
 						pet.type=4;
 				}
-				else if (pet.careMistakes<10)
+				else if (pet.careMistakes<50)
 					pet.type=4;
 			}
 			pet.level++;
 			pet.careMistakes=0;
-			pet.willEvolveAt = 11583; //to be changed to 11583, i.e. 2 hours 30mins
-			pet.chanceToShit = 2;
+			pet.willEvolveAt = 112320; //to be changed to 112320, i.e. 24hours
+			pet.chanceToShit = 1;
 			//input care mistakes conditions here and change type
 			if (pet.type == 1){
 				pet.imagesize=137;
-				pet.currentFoodCapacity=60;
-				pet.maxEnergy= 100;
+				pet.currentFoodCapacity=150;
+				pet.maxEnergy= 250;
 				petImage1.src = "images/adult1/movement/1.1.png";
 				petImage2.src = "images/adult1/movement/2.1.png";
 				petImage3.src = "images/adult1/movement/1.2.png";
@@ -688,8 +688,8 @@ var evolve = function(){
 			}
 			else if (pet.type == 2){
 				pet.imagesize=143;
-				pet.currentFoodCapacity=64;
-				pet.maxEnergy= 80;
+				pet.currentFoodCapacity=160;
+				pet.maxEnergy= 160;
 				petImage1.src = "images/adult2/movement/1.1.png";
 				petImage2.src = "images/adult2/movement/2.1.png";
 				petImage3.src = "images/adult2/movement/1.2.png";
@@ -703,8 +703,8 @@ var evolve = function(){
 			}
 			else if (pet.type == 3){
 				pet.imagesize=89;
-				pet.currentFoodCapacity=54;
-				pet.maxEnergy= 86;
+				pet.currentFoodCapacity=135;
+				pet.maxEnergy= 215;
 				petImage1.src = "images/adult3/movement/1.1.png";
 				petImage2.src = "images/adult3/movement/2.1.png";
 				petImage3.src = "images/adult3/movement/1.2.png";
@@ -718,8 +718,8 @@ var evolve = function(){
 			}
 			else if(pet.type==4){
 				pet.imagesize=47;
-				pet.currentFoodCapacity=50;
-				pet.maxEnergy= 60;
+				pet.currentFoodCapacity=125;
+				pet.maxEnergy= 150;
 				petImage1.src = "images/adult4/movement/1.1.png";
 				petImage2.src = "images/adult4/movement/2.1.png";
 				petImage3.src = "images/adult4/movement/1.2.png";
@@ -733,8 +733,8 @@ var evolve = function(){
 			}
 			else if (pet.type == 5){
 				pet.imagesize=95;
-				pet.currentFoodCapacity=58;
-				pet.maxEnergy= 90;
+				pet.currentFoodCapacity=145;
+				pet.maxEnergy= 225;
 				petImage1.src = "images/adult5/movement/1.1.png";
 				petImage2.src = "images/adult5/movement/2.1.png";
 				petImage3.src = "images/adult5/movement/1.2.png";
@@ -764,10 +764,10 @@ var dieFromSick = function(){
 	if (randomnum<1 && sickCounter<38){//by default 0.01 percent chance to die from sickness
 		death();
 	}
-	else if (randomnum<4 && sickCounter>=38 && sickCounter< 154){//if sick for at least 29.5sec, chance increase to 0.04%
+	else if (randomnum<2 && sickCounter>=38 && sickCounter< 313){//if sick for at least 60sec, chance increase to 0.02%
 		death();
 	}
-	else if (randomnum<20 && sickCounter>=154)//if sick for at least 2mins, chance increase to 0.2%
+	else if (randomnum<10 && sickCounter>=1565)//if sick for at least 5mins, chance increase to 0.1%
 		death();
 };
 
@@ -825,9 +825,9 @@ var main = function () {
 	}
 	
 	timeCounter++; //age counter
-	if (timeCounter >=386){ //about 5 mins of human time is 1day of pet's time
+	if (timeCounter >=2316){ //about 30 mins of human time is 1day of pet's time
 		timeCounter=0;
-		if(pet.age<99)//pet age will never be above 99, 99days in pet times is about 8hrs 15mins!
+		if(pet.age<99)//pet age will never be above 99, 99days in pet times is about 49hrs 30mins!
 			pet.age++;
 	}
 	if(!pet.isHungry)

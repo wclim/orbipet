@@ -26,6 +26,10 @@
             function load(){
                 TINY.box.show({html:'<center><br><b>Please enter a name for your pet.</b></br><br><form onsubmit="pet.name=document.getElementById(&#39;petname&#39;).value;startGame();TINY.box.hide(); return false"><input required type="text" id="petname" maxlength="10"><input type="submit" value="Create!"></form>',width:250,height:100, close:false});
             };
+            
+            function help(){
+                TINY.box.show({html:'Use the top button to navigate the menu.<br>Use the middle button to confirm selection.<br> use the bottom button to cancel.<hr>Play a mini snake game to feed your pet.<br>Train with your pet by letting it win at rock-paper scissors.<br>Flush the poop away when the meter reaches the maximum.<br>Destroy the virus to heal your pet if it falls sick.<br>Off the lights if your pet falls asleep.',width:300,height:250});
+            };
         </script>
         <script>
             function resetGame()
@@ -130,6 +134,9 @@
             <a  class="btn btn-info btn-lg" onclick= "resetGame()">
                 <span class="glyphicon glyphicon-chevron-left" ></span>Reset
             </a>
+            <a  class="btn btn-info btn-lg" onclick= "help()">
+                <span class="glyphicon glyphicon-chevron-left" ></span>Help
+            </a>
             <div style="position:absolute; width: 509; height: 325; left: 130; top: 20; background: none;">
                 
                 
@@ -181,6 +188,5 @@
                 
                 <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
                 <link href="css/custom.css" rel="stylesheet" type="text/css">
-                <script src="js/custom.js" type="text/javascript"></script>
             </head>
         </html>
