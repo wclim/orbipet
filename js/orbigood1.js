@@ -123,7 +123,7 @@ var pet = {
 	lights: true, //on or off the lights for pet to sleep
 	chanceToShit: 6,
 	shitcount: 0, //how many shit there are
-	willEvolveAt: 1176, //countdown time to evolve to next stage, default value is 1176, i.e. 15mins for egg to hatch
+	willEvolveAt: 39, //countdown time to evolve to next stage, default value is 1176, i.e. 15mins for egg to hatch
 	
 	moveleftbefore:true,
 	moverightbefore:false,
