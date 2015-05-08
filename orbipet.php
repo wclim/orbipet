@@ -71,7 +71,7 @@
                 pet.lights= true;//on or off the lights for pet to sleep
                 pet.chanceToShit= 7;
                 pet.pooCount= 0; //how many shit there are
-                pet.willEvolveAt= 39; //countdown time to evolve to next stage, default value is 39, i.e. 30 secs for egg to hatch
+                pet.willEvolveAt= 1176; //countdown time to evolve to next stage, default value is 1176, i.e. 15mins for egg to hatch
                 
                 pet.moveleftbefore=true;
                 pet.moverightbefore=false;
